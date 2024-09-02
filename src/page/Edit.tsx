@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import EditableDivWithLineNumbers from './Editor';
@@ -34,17 +35,19 @@ const Edit: React.FC = () => {
             <Box sx={{ flexGrow: 1, overflow: "auto", background: 'white',height:"100%", display: "flex", }}>
                 <Box sx={{ width: 81, borderRight: "1px solid" }}>左</Box>
                 <Box sx={{ width: 329, borderRight: "1px solid" }}>中</Box>
-                <Box sx={{ flexGrow: 1, display: "flex" }}>
-                    <Box sx={{ flex: 1, borderRight: "1px solid", display: "flex" }}>
-                        {/* 编辑区 */}
-                        <EditableDivWithLineNumbers onValueChange={handleContentChange} />
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                        {/* 预览区 */}
-
-                        <Box sx={{ height:"100%", overflowY:"auto"}}>
-                        { HtmlElement }
+                <Box sx={{ flexGrow: 1, display: "flex",flexDirection: 'column'}}>
+                    <Box sx={{height:41,width:"100%",background: "#8E8D8D",flexShrink: 0}}></Box>
+                    <Box sx={{ display: "flex",height:"100%",overflow:"auto" }}>
+                        <Box  id="bottom"  sx={{ flex: 1,borderRight: "1px solid",height:"100%", display: "flex"}}>
+                            <EditableDivWithLineNumbers onValueChange={handleContentChange} />
                         </Box>
+                         
+                        <Box sx={{ flex: 1 }}>
+                            <Box sx={{ height:"100%", overflowY:"auto"}}>
+                            { HtmlElement }
+                            </Box>
+                        </Box>
+                        
                     </Box>
                 </Box>
             </Box>

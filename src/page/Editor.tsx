@@ -55,17 +55,17 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
         if (selecTion != null) {
             var range = selecTion.getRangeAt(0);
             if (selecTion.isCollapsed) {
-                if(selecTion.anchorNode == null) return;
-                
+                if (selecTion.anchorNode == null) return;
+
                 //selecTion.anchorNode 的类型为文本就需要获取父节点，其他就直接获取
                 let index = 0;
-                if(selecTion.anchorNode.nodeType === 3){
+                if (selecTion.anchorNode.nodeType === 3) {
                     let select = selecTion.anchorNode.parentNode;
-                    if(select === null)return;
+                    if (select === null) return;
                     index = Array.prototype.indexOf.call(select.parentNode?.childNodes, select);
-                } else{
+                } else {
                     let select = selecTion.anchorNode
-                    if(select === null)return;
+                    if (select === null) return;
                     index = Array.prototype.indexOf.call(select.parentNode?.childNodes, select);
                 }
 
@@ -78,7 +78,7 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
                 if (index == originalElement.childNodes.length - 1) {
 
                     originalElement.appendChild(codeSpan.cloneNode(true));
-                }else{
+                } else {
                     originalElement.insertBefore(codeSpan.cloneNode(true), originalElement.childNodes[index + 1]);
                 }
 
@@ -91,7 +91,7 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
                 for (let index = 0; index < originalElement.childNodes.length; index++) {
                     const chileNode = originalElement.childNodes[index];
 
-                    if (chileNode.isEqualNode(start) ) {
+                    if (chileNode.isEqualNode(start)) {
                         startIndex = index;
                     }
                     if (chileNode.isEqualNode(range.endContainer)) {
@@ -99,7 +99,7 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
                     }
                 }
 
-                
+
                 const codeSpan = document.createElement('div');
                 const codeSpanContent = document.createElement('span');
                 codeSpanContent.textContent = "---";
@@ -160,7 +160,7 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
 
 
 
-    function test(){
+    function test() {
         let select = window.getSelection()
         console.log(select);
         console.log(select?.focusNode)
@@ -172,30 +172,33 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
     }
 
     return (
-        <Box sx={{ flex: 1, borderRight: "1px solid", display: "flex", height: "100%" }}>
-            <Button variant="outlined" onClick={handleButtonClick}>Outlined</Button>
-            {/* 行号导航栏 */}
-            <Box sx={{ width: 40, height: "100%", borderRight: "1px solid" }}>
-                {lines.map((line, index) => {
-                    return (
-                        <Typography key={index} sx={{ textAlign: "right", marginRight: 1 }}>
-                            {line}
-                        </Typography>
-                    );
-                })}
-            </Box>
-            {/* 编辑区 */}
-            <div
-                contentEditable="true"
-                style={{ width: "100%",outline: "none", height: "100%", marginLeft: 2,overflowY: "auto" }}
-                suppressContentEditableWarning={true}
-                onInput={handleContentChange}
-                id='editer'>
-                <div id="abc">
-                    <br />
+        // <Box sx={{width:"100%",height:"100%"}}>
+        //     <Box sx={{height:41}}>123123</Box>
+            <Box sx={{ flex: 1, display: "flex",width:"100%",height:"100%",overflowY:"auto"}}>
+                {/* <Button variant="outlined" onClick={handleButtonClick}>Outlined</Button> */}
+                {/* 行号导航栏 */}
+                <Box sx={{ width: 40, borderRight: "1px solid" }}>
+                    {lines.map((line, index) => {
+                        return (
+                            <Typography key={index} sx={{ textAlign: "right", marginRight: 1 }}>
+                                {line}
+                            </Typography>
+                        );
+                    })}
+                </Box>
+                {/* 编辑区 */}
+                <div
+                    contentEditable="true"
+                    style={{ width: "100%", outline: "none", marginLeft: 2}}
+                    suppressContentEditableWarning={true}
+                    onInput={handleContentChange}
+                    id='editer'>
+                    <div id="abc">
+                        <br />
+                    </div>
                 </div>
-            </div>
-        </Box>
+            </Box>
+        // </Box>
 
     );
 };
