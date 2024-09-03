@@ -177,10 +177,10 @@ function EditableDivWithLineNumbers({ onValueChange }: LineNumberProps) {
             <Box sx={{ flex: 1, display: "flex",width:"100%",height:"100%",overflowY:"auto"}}>
                 {/* <Button variant="outlined" onClick={handleButtonClick}>Outlined</Button> */}
                 {/* 行号导航栏 */}
-                <Box sx={{ width: 40, borderRight: "1px solid" }}>
+                <Box sx={{ width: 40, display:"flex",flexDirection:"column",borderRight: "1px solid" }}>
                     {lines.map((line, index) => {
                         return (
-                            <Typography key={index} sx={{ textAlign: "right", marginRight: 1 }}>
+                            <Typography key={index} sx={{ width:"100%",textAlign: "right", marginRight: 1,borderRight: "1px solid"}}>
                                 {line}
                             </Typography>
                         );

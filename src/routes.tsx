@@ -1,9 +1,14 @@
 import Edit from './page/Edit';
-import Editor from './page/Editor';
+import Login from './page/Login';
 
 const routers = [{
     path: '/',
     element: <Edit />,
+    // exact: true,
+},
+{
+    path: '/login',
+    element: <Login />,
     // exact: true,
 }]
 export default routers;
