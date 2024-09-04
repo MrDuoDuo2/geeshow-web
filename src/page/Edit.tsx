@@ -120,6 +120,30 @@ const Edit: React.FC = () => {
 
     }
 
+    const handleTagClick = (id:any)=>{
+        console.log("handleTagClick")
+        setCurrentTarget(id);
+    }
+
+    const handleTagClose = (id:any)=>{
+        console.log("handleTagClose")
+        console.log("id", id)
+        if(targetList.includes(id)){
+            const index = targetList.indexOf(id);
+            console.log("index", index);
+            targetList.splice(index, 1);
+            setTargetList(current => [...current]);
+            if(currentTarget === id){
+                if(index > 0){
+                    setCurrentTarget(targetList[index - 1]);
+                }else{
+                    setCurrentTarget(targetList[0]);
+                }
+            }
+        }
+
+    }
+
 
     const handleContentChange = (content: string, initialLines: number, returnContent: string) => {
         // console.log("content", content);
@@ -291,7 +315,9 @@ const Edit: React.FC = () => {
                          {/* 标签栏 */}
                         {targetList.map((article) => {
                             return (
-                                <Box sx={{ background: (currentTarget == article.id?"white":"#565656"), width: 217, height: "100%",marginRight:1 }}>
+                                <Box 
+                                onClick={()=>handleTagClick(article.id)} 
+                                sx={{ background: (currentTarget == article.id?"white":"#565656"), width: 217, height: "100%",marginRight:1 }}>
                                     <Box sx={{ display: "flex", flexDirection: "row", padding: 1 }}>
                                         <Box>
                                             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +326,9 @@ const Edit: React.FC = () => {
 
                                         </Box>
                                         <Box sx={{ flexGrow: 1 }}><span style={{ color: (currentTarget == article.id?"black":"white") }}>{article.title}</span></Box>
-                                        <Box>
+                                        <Box 
+                                        onClick={()=>handleTagClose(article.id)}
+                                        >
                                             <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_1_1877)">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 12.9442L16.5821 17.8062C16.8517 18.0642 17.2175 18.2091 17.5989 18.2091C17.9802 18.2091 18.346 18.0642 18.6157 17.8062C18.8853 17.5483 19.0368 17.1984 19.0368 16.8336C19.0368 16.4689 18.8853 16.119 18.6157 15.8611L13.5317 11L18.6147 6.1389C18.7482 6.01117 18.854 5.85956 18.9262 5.69271C18.9984 5.52585 19.0356 5.34703 19.0355 5.16645C19.0355 4.98586 18.9983 4.80706 18.926 4.64024C18.8537 4.47342 18.7477 4.32185 18.6142 4.19419C18.4807 4.06653 18.3222 3.96527 18.1477 3.8962C17.9733 3.82714 17.7864 3.79161 17.5976 3.79165C17.4088 3.7917 17.2218 3.82731 17.0474 3.89645C16.873 3.9656 16.7146 4.06692 16.5811 4.19465L11.5 9.05573L6.41799 4.19465C6.28545 4.06326 6.12688 3.95844 5.95153 3.8863C5.77619 3.81416 5.58758 3.77614 5.39671 3.77447C5.20584 3.7728 5.01653 3.8075 4.83984 3.87656C4.66314 3.94562 4.50259 4.04764 4.36756 4.17668C4.23252 4.30573 4.12571 4.4592 4.05335 4.62815C3.98099 4.7971 3.94453 4.97814 3.94609 5.16071C3.94766 5.34328 3.98723 5.52373 4.06248 5.69151C4.13773 5.8593 4.24717 6.01108 4.3844 6.13798L9.46836 11L4.38536 15.8611C4.11569 16.119 3.96419 16.4689 3.96419 16.8336C3.96419 17.1984 4.11569 17.5483 4.38536 17.8062C4.65503 18.0642 5.02078 18.2091 5.40215 18.2091C5.78352 18.2091 6.14927 18.0642 6.41894 17.8062L11.5 12.9433V12.9442Z" fill={currentTarget == article.id?"black":"white"} />
